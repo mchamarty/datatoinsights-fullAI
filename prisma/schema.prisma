@@ -1,0 +1,36 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model CalendarEvent {
+  id                String   @id @default(uuid())
+  subject          String
+  start            DateTime
+  end              DateTime
+  organizerId      String
+  attendeeIds      String[]
+  isRecurring      Boolean
+  recurrencePattern String?
+  responseStatus   String
+  location         String
+  type             String
+  createdAt        DateTime @default(now())
+}
+
+model TeamsMessage {
+  id          String   @id @default(uuid())
+  senderId    String
+  recipientIds String[]
+  content     String
+  timestamp   DateTime
+  channelId   String?
+  isGroupChat Boolean
+  hasReplies  Boolean
+  reactions   String[]
+  createdAt   DateTime @default(now())
+}
